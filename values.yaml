@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: nginx12
   tag: latest
   pullPolicy: IfNotPresent
 
