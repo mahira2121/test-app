@@ -5,7 +5,6 @@ metadata:
   labels:
     app: {{ .Release.Name }}
     team: infra
-    testing: {{ .Values.testing }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
