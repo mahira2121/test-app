@@ -5,6 +5,7 @@ metadata:
   labels:
     app: {{ .Release.Name }}
     team: infra
+    author: Megha-Varshney
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
