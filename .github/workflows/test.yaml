@@ -1,0 +1,13 @@
+name: Testing Workflow
+
+on:
+  repository_dispatch:
+    types: [deploy_test]
+
+jobs:
+  deploy-sg:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.client_payload.service  == "fms" }}  
+    steps:
+      - name: test
+        run: echo "test done"
