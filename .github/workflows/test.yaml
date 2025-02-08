@@ -7,7 +7,7 @@ on:
 jobs:
   deploy-sg:
     runs-on: ubuntu-latest
-    if: ${{ github.event.client_payload.service  == "fms" }}  
+    if: ${{ github.event.client_payload.service  == 'fms' }}  
     steps:
       - name: test
         run: echo "test done"
