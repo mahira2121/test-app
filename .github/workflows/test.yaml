@@ -8,7 +8,7 @@ on:
     
 env:
   IMAGE_TAG: PEN-1234_dendd-c05fcb895cf5ace7763c78cf07cd10ec2cbdabab
-  MANIFESTS_COMMIT_HASH: c007535baf0e3ca55a4349198c3059f2c500e0bc
+  MANIFESTS_COMMIT_HASH: 88bf166ca45d387401c7ef92a21ba8270f7ecd9f
   
 jobs:
   revert-app-repo-commit:
