@@ -44,6 +44,8 @@ jobs:
           # else
           #   git push origin main
           # fi
+          git config --global user.email "varshneymahira@gmail.com"
+          git config --global user.name "mahira2121"
           git fetch origin main
           git checkout $MANIFESTS_COMMIT_HASH 
           git add .
