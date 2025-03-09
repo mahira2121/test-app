@@ -45,9 +45,9 @@ jobs:
           #   git push origin main
           # fi
           git fetch origin main
-          git checkout 56e05fced 
+          git checkout $MANIFESTS_COMMIT_HASH 
           git add .
-          git commit -m 'Revert to 56e05fced'
+          git commit -m 'Revert to $MANIFESTS_COMMIT_HASH'
           git push origin main
 
 
