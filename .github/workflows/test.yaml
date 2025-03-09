@@ -35,15 +35,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_ACCESS }}
         run: |
+          # git fetch origin main
+          # git checkout main
+          # git reset --hard origin/main  # Ensure we are in sync with remote
+          # git revert --no-edit $MANIFESTS_COMMIT_HASH || true  # Attempt revert
+          # if git diff --quiet; then
+          #   echo "No changes after revert, skipping push."
+          # else
+          #   git push origin main
+          # fi
           git fetch origin main
-          git checkout main
-          git reset --hard origin/main  # Ensure we are in sync with remote
-          git revert --no-edit $MANIFESTS_COMMIT_HASH || true  # Attempt revert
-          if git diff --quiet; then
-            echo "No changes after revert, skipping push."
-          else
-            git push origin main
-          fi
+          git checkout 56e05fced 
+          git add .
+          git commit -m 'Revert to 56e05fced'
+          git push origin main
 
 
 
