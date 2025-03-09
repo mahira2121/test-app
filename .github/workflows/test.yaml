@@ -32,6 +32,8 @@ jobs:
 
       - name: Revert commit in manifests repository
         run: |
+          git config --global user.email "varshneymahira@gmail.com"
+          git config --global user.name "mahira2121"
           git revert --no-edit $MANIFESTS_COMMIT_HASH
           git push origin main
 
