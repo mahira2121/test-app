@@ -35,11 +35,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_ACCESS }}
         run: |
-          git config --global user.email "varshneymahira@gmail.com"
-          git config --global user.name "mahira2121"
           git fetch origin main
-          git revert --no-edit $MANIFESTS_COMMIT_HASH
-          git push origin main
+          git checkout main
+          git reset --hard origin/main  # Ensure we are in sync with remote
+          git revert --no-edit $MANIFESTS_COMMIT_HASH || true  # Attempt revert
+          if git diff --quiet; then
+            echo "No changes after revert, skipping push."
+          else
+            git push origin main
+          fi
 
 
 
