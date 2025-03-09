@@ -31,6 +31,8 @@ jobs:
           token: ${{ secrets.GIT_ACCESS }}
 
       - name: Revert commit in manifests repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_ACCESS }}
         run: |
           git config --global user.email "varshneymahira@gmail.com"
           git config --global user.name "mahira2121"
