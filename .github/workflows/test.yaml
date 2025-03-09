@@ -29,6 +29,7 @@ jobs:
           repository: mahira2121/manifests
           ref: main
           token: ${{ secrets.GIT_ACCESS }}
+          fetch-depth: 0 
 
       - name: Revert commit in manifests repository
         env:
