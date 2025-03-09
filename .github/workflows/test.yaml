@@ -34,3 +34,7 @@ jobs:
         run: |
           git revert --no-edit $MANIFESTS_COMMIT_HASH
           git push origin main
+
+
+
+          
