@@ -1,13 +1,36 @@
 name: Testing Workflow
 
 on:
-  repository_dispatch:
-    types: [deploy_test]
-
+  pull_request
+  
+  # repository_dispatch:
+  #   types: [deploy_test]
+    
+env:
+  IMAGE_TAG: PEN-1234_dendd-c05fcb895cf5ace7763c78cf07cd10ec2cbdabab
+  MANIFESTS_COMMIT_HASH: dfc9970d6e20f7ff6798d9266058ca69cf688ba0
+  
 jobs:
-  deploy-sg:
+  revert-app-repo-commit:
     runs-on: ubuntu-latest
-    if: ${{ github.event.client_payload.service  == 'fms' }}  
     steps:
-      - name: test
-        run: echo "test done"
+      - name: Split image tag into branch name and commit hash
+        run: |
+          BRANCH_NAME=$(echo "$IMAGE_TAG" | sed -E 's/-[a-f0-9]{40}$//')
+          APP_COMMIT_HASH=$(echo "$IMAGE_TAG" | grep -oE '[a-f0-9]{40}$')
+          echo "Branch Name: $BRANCH_NAME"
+          echo "Commit Hash: $APP_COMMIT_HASH"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          echo "APP_COMMIT_HASH=$APP_COMMIT_HASH" >> $GITHUB_ENV
+          
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          repository: mahira2121/manifests
+          ref: main
+          token: ${{ secrets.GIT_ACCESS }}
+
+      - name: Revert commit in manifests repository
+        run: |
+          git revert --no-edit $MANIFESTS_COMMIT_HASH
+          git push origin main
