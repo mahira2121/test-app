@@ -1,10 +1,8 @@
 name: Testing Workflow
 
 on:
-  pull_request
-  
-  # repository_dispatch:
-  #   types: [deploy_test]
+  issue_comment:
+    types: [created]
     
 env:
   IMAGE_TAG: PEN-1234_dendd-c05fcb895cf5ace7763c78cf07cd10ec2cbdabab
@@ -12,6 +10,7 @@ env:
   
 jobs:
   revert-app-repo-commit:
+    if: contains(github.event.comment.body, 'deploy')
     runs-on: ubuntu-latest
     steps:
       - name: Split image tag into branch name and commit hash
