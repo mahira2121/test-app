@@ -6,7 +6,7 @@ on:
     
 env:
   IMAGE_TAG: PEN-1234_dendd-c05fcb895cf5ace7763c78cf07cd10ec2cbdabab
-  MANIFESTS_COMMIT_HASH: dfc9970d6e20f7ff6798d9266058ca69cf688ba0
+  MANIFESTS_COMMIT_HASH: 88bf166ca45d387401c7ef92a21ba8270f7ecd9f
   
 jobs:
   revert-app-repo-commit:
@@ -28,8 +28,30 @@ jobs:
           repository: mahira2121/manifests
           ref: main
           token: ${{ secrets.GIT_ACCESS }}
+          fetch-depth: 0 
 
       - name: Revert commit in manifests repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_ACCESS }}
         run: |
-          git revert --no-edit $MANIFESTS_COMMIT_HASH
-          git push origin main
+          # git fetch origin main
+          # git checkout main
+          # git reset --hard origin/main  # Ensure we are in sync with remote
+          # git revert --no-edit $MANIFESTS_COMMIT_HASH || true  # Attempt revert
+          # if git diff --quiet; then
+          #   echo "No changes after revert, skipping push."
+          # else
+          #   git push origin main
+          # fi
+          git config --global user.email "varshneymahira@gmail.com"
+          git config --global user.name "mahira2121"
+          git push -f origin  $MANIFESTS_COMMIT_HASH:main
+          # git fetch origin main
+          # git checkout $MANIFESTS_COMMIT_HASH 
+          # git add .
+          # git commit -m 'Revert to $MANIFESTS_COMMIT_HASH'
+          # git push origin main
+
+
+
+          
